@@ -1,11 +1,37 @@
 <!doctype html>
+<html>
+<head>
 <meta charset="utf-8">
-<title>Momo · Pair</title>
+<title>Momo · Pairing</title>
 <meta name="viewport" content="width=device-width, initial-scale=1">
+<script>
+  // Forward the Meta DAT registration callback into the app via its custom URL
+  // scheme (momoglasses://), so the universal link works WITHOUT the paid-only
+  // Associated Domains entitlement. Carry through all params (query + fragment).
+  (function () {
+    var target = "momoglasses://pair" + window.location.search + window.location.hash;
+    // Attempt the hand-off immediately.
+    try { window.location.replace(target); } catch (e) {}
+    // Expose it for the fallback button below.
+    window.__momoTarget = target;
+  })();
+</script>
+</head>
 <body style="background:#0b1611;color:#dceede;font-family:system-ui,sans-serif;display:grid;place-items:center;height:100vh;margin:0">
-  <div style="text-align:center">
+  <div style="text-align:center;max-width:320px;padding:0 20px">
     <div style="font-size:44px">🌿</div>
     <h1 style="font-weight:600;margin:8px 0">Momo · Pairing</h1>
-    <p style="color:#8aa593">If you're not redirected, open the Momo app on your iPhone.</p>
+    <p style="color:#8aa593;line-height:1.5">Handing you back to the Momo app…</p>
+    <a id="open" href="momoglasses://pair"
+       style="display:inline-block;margin-top:14px;padding:12px 22px;border-radius:12px;background:#7fd68a;color:#0b1611;font-weight:700;text-decoration:none">
+       Open Momo
+    </a>
   </div>
+  <script>
+    // Make the fallback button carry the same callback params, in case the
+    // auto-redirect was blocked (some iOS webviews require a user tap).
+    var a = document.getElementById('open');
+    if (a && window.__momoTarget) a.href = window.__momoTarget;
+  </script>
 </body>
+</html>
