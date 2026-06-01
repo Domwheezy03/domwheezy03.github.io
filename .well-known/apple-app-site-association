@@ -1,0 +1,10 @@
+{
+  "applinks": {
+    "details": [
+      {
+        "appIDs": ["M2GUKU5K3S.com.momo.momoGlasses"],
+        "components": [{ "/": "*" }]
+      }
+    ]
+  }
+}
